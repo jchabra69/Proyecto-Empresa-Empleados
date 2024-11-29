@@ -1,1 +1,93 @@
-/*CSS Global para todo el proyecto*/
+/* Estilos globales */
+
+/* Aseguramos que el html y body ocupen toda la altura */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Usamos Flexbox en el body para que el footer se quede al fondo */
+body {
+    display: flex;
+    flex-direction: column; /* Disposición en columna */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Estilos para el header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+}
+
+/* Estilos de la navegación */
+nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+/* Estilo personalizado para los botones grandes */
+.nav-link {
+    font-size: 1.2rem;
+    padding: 15px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Botones con colores personalizados para las entidades */
+.btn-empresa {
+    background-color: #007bff; /* Azul */
+    color: white;
+    border: 2px solid #007bff;
+}
+
+.btn-empresa:hover {
+    background-color: #0056b3; /* Azul más oscuro */
+    border-color: #0056b3;
+}
+
+.btn-empleado {
+    background-color: #28a745; /* Verde */
+    color: white;
+    border: 2px solid #28a745;
+}
+
+.btn-empleado:hover {
+    background-color: #218838; /* Verde más oscuro */
+    border-color: #218838;
+}
+
+/* Aseguramos que el contenido principal ocupe el espacio disponible */
+main {
+    flex: 1;  /* Esto hace que el contenido ocupe el espacio restante */
+    padding: 20px;
+}
+
+/* Estilos para el footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+}
+
