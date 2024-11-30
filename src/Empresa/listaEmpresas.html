@@ -20,12 +20,17 @@
 
     <div id="empresa-lista" class="row">
     </div>
+
+    <!-- Botones en la misma línea -->
     <div class="text-center mt-4">
-        <button class="btn btn-lg btn-primary" onclick="location.href='crearEmpresa.html'">Crear Nueva Empresa</button>
+        <div class="btn-group">
+            <button id="crear-empresa-button" class="btn btn-lg btn-primary">Crear Nueva Empresa</button>
+            <button id="editar-empresa-button" class="btn btn-lg btn-warning">Editar Empresa</button>
+        </div>
     </div>
 
     <div class="text-center mt-4">
-        <button class="btn btn-lg btn-secondary" onclick="location.href='index.html'">Volver al Inicio</button>
+        <button id="volver-inicio-button" class="btn btn-lg btn-secondary">Volver al Inicio</button>
     </div>
 
 </main>
@@ -36,6 +41,19 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="empresaController.js"></script>
+<script>
+    document.getElementById('crear-empresa-button').addEventListener('click', function() {
+        location.href = 'crearEmpresa.html';
+    });
+
+    document.getElementById('editar-empresa-button').addEventListener('click', function() {
+        location.href = 'editarEmpresa.html';
+    });
+
+    document.getElementById('volver-inicio-button').addEventListener('click', function() {
+        location.href = '../../index.html';
+    });
+</script>
 
 </body>
 </html>

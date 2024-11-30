@@ -3,42 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Empresas</title>
+    <title>CRUD Empresa-Empleados</title>
+
+    <link rel="icon" href="assets/img/logo.ico" type="image/x-icon">
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="empresa.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body class="d-flex flex-column min-vh-100">
-<header class="bg-success text-white text-center py-4">
-    <h1>Lista de Empresas</h1>
+
+<!-- Header --><header class="bg-success text-white text-center py-4">
+    <div class="header-content">
+        <img src="assets/img/logo.ico" alt="Logo" class="icono-logo">
+        <h1>CRUD de Empresas y Empleados</h1>
+    </div>
 </header>
 
-<main class="flex-grow-1 container mt-5">
-    <!-- Botón para cargar empresas desde un archivo JSON -->
-    <div class="mb-4 text-center">
-        <input type="file" id="file-input" accept=".json" class="form-control-file">
-        <button id="load-button" class="btn btn-lg btn-primary mt-3">Cargar Empresas desde JSON</button>
-    </div>
+<!-- Notas -->
+<div class="alert alert-info mx-5 my-4" role="alert">
+    <h4 class="alert-heading">Nota Importante:</h4>
+    <p>No sé como debemos orientar el proyecto sin Backend, ¿lo simulamos todo con el localstorage o se monta un servidor con NPM como he leído por ahí? Tengo problemas para volcar los datos por eso mismo (parece que JS no puede leer automáticamente ficheros de mi sistema), así que hago que todo se guarde en un JSON y pida cargarlos para hacer tal cosa, excepto eliminar que directamente lo que hace es limpiar lo que se haya cargado en el array ya que no tengo persistencia de verdad en la sesión para saber si una empresa se puede borrar o no</p>
+    <hr>
+    <p class="mb-0">- Crear Empresas/Empleados ya no funciona, no genera el Json.</p>
+    <p class="mb-0">- Empleados está incompleto todavía</p>
+</div>
 
-    <div id="empresa-lista" class="row">
-        <!-- Aquí aparecerán las empresas dinámicamente mediante JavaScript -->
-    </div>
-    <div class="text-center mt-4">
-        <button class="btn btn-lg btn-primary" onclick="location.href='crearEmpresa.html'">Crear Nueva Empresa</button>
-    </div>
+<nav class="bg-light py-3">
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link btn btn-lg btn-empresa" href="src/Empresa/listaEmpresas.html">Empresas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link btn btn-lg btn-empleado" href="src/Empleado/listaEmpleados.html">Empleados</a>
+        </li>
+    </ul>
+</nav>
 
-    <!-- Botón para volver al inicio (index.html) -->
-    <div class="text-center mt-4">
-        <button class="btn btn-lg btn-secondary" onclick="location.href='index.html'">Volver al Inicio</button>
-    </div>
-
+<main class="flex-grow-1">
+    <!-- contenido dinámico -->
 </main>
 
-<footer class="bg-dark text-white text-center py-3 mt-auto">
+<!-- Footer -->
+<footer class="bg-dark text-white text-center py-3">
     <p>© 2024 - JNCB</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="empresaController.js"></script>
-
+<script src="js/main.js"></script>
 </body>
 </html>

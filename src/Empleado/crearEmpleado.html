@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Empleado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<header class="bg-primary text-white text-center py-4">
+    <h1>Crear Nuevo Empleado</h1>
+</header>
+
+<main class="flex-grow-1 container mt-5">
+    <form id="crear-empleado-form">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" id="nombre" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="text" id="telefono" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="empresa" class="form-label">Empresa</label>
+            <select id="empresa" class="form-control" required>
+                <!-- Las opciones se pondrán dinámicamente -->
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary">Guardar Empleado</button>
+    </form>
+</main>
+
+<footer class="bg-dark text-white text-center py-3 mt-auto">
+    <p>© 2024 - JNCB</p>
+</footer>
+
+<script src="empleadoController.js"></script>
+</body>
+</html>

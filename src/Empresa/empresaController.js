@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
         fechaFundacion: /^\d{4}-\d{2}-\d{2}$/,  // Validar fecha en formato yyyy-mm-dd
     };
 
-    // Lista para guardar las empresas
     let empresas = [];
 
     // Función para generar un ID único para cada empresa
@@ -24,16 +23,14 @@ document.addEventListener('DOMContentLoaded', function () {
         link.click();
     }
 
-    // Validación de los campos del formulario
+    // Función para validar el formulario
     function validarFormulario() {
         let esValido = true;
-
         const nombre = document.getElementById('nombre').value;
         const email = document.getElementById('email').value;
         const ubicacion = document.getElementById('ubicacion').value;
         const fechaFundacion = document.getElementById('fechaFundacion').value;
 
-        // Comprobamos que el nombre solo tenga letras y espacios
         if (!regExpr.nombre.test(nombre)) {
             mostrarError('nombre', 'El nombre solo puede contener letras y espacios');
             esValido = false;
@@ -41,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mostrarExito('nombre');
         }
 
-        // Validar si el email es correcto
         if (!regExpr.email.test(email)) {
             mostrarError('email', 'Por favor, ingrese un correo electrónico válido');
             esValido = false;
@@ -49,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mostrarExito('email');
         }
 
-        // Validar si la ubicación solo tiene caracteres permitidos
         if (!regExpr.ubicacion.test(ubicacion)) {
             mostrarError('ubicacion', 'La ubicación solo puede contener letras, números y caracteres especiales');
             esValido = false;
@@ -57,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function () {
             mostrarExito('ubicacion');
         }
 
-        // Validar la fecha de fundación
         if (!regExpr.fechaFundacion.test(fechaFundacion)) {
             mostrarError('fechaFundacion', 'Por favor, ingrese una fecha válida en formato YYYY-MM-DD');
             esValido = false;
@@ -68,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return esValido;
     }
 
-    // Mostrar error si hay problemas en el campo
+    // Función para mostrar los errores de validación
     function mostrarError(campo, mensaje) {
         const input = document.getElementById(campo);
         const error = input.nextElementSibling;
@@ -80,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         input.classList.remove('is-valid');
     }
 
-    // Mostrar mensaje de éxito si la validación pasó
+    // Función para mostrar los mensajes de éxito
     function mostrarExito(campo) {
         const input = document.getElementById(campo);
         const error = input.nextElementSibling;
@@ -92,32 +86,13 @@ document.addEventListener('DOMContentLoaded', function () {
         input.classList.remove('is-invalid');
     }
 
-    // Editar los datos de una empresa
-    function editarEmpresa(id) {
-        console.log("Editar empresa con ID:", id);
-        const empresa = empresas.find(e => e.id === id);
-        if (empresa) {
-            document.getElementById('empresa-id').value = empresa.id;
-            document.getElementById('nombre').value = empresa.nombre;
-            document.getElementById('email').value = empresa.email;
-            document.getElementById('ubicacion').value = empresa.ubicacion;
-            document.getElementById('fechaFundacion').value = empresa.fechaFundacion;
-        }
-        window.location.href = 'editarEmpresa.html';
-    }
-
-    // Eliminar una empresa
+    // Función para eliminar una empresa
     function eliminarEmpresa(id) {
-        console.log("Eliminar empresa con ID:", id);
-        const confirmacion = confirm('¿Está seguro de que desea eliminar esta empresa?');
-        if (confirmacion) {
-            empresas = empresas.filter(e => e.id !== id);
-            guardarEmpresasEnJSON();
-            mostrarEmpresas();
-        }
+        empresas = empresas.filter(e => e.id !== id);
+        mostrarEmpresas();
     }
 
-    // Mostrar todas las empresas en la lista
+    // Función para mostrar las empresas en la lista de selección
     function mostrarEmpresas() {
         const listaEmpresas = document.getElementById('empresa-lista');
         listaEmpresas.innerHTML = '';
@@ -126,31 +101,50 @@ document.addEventListener('DOMContentLoaded', function () {
             const div = document.createElement('div');
             div.classList.add('empresa-card');
             div.innerHTML = `
-            <h5 class="card-title">${empresa.nombre}</h5>
-            <p class="card-text">ID: ${empresa.id}</p>
-            <p class="card-text">Email: ${empresa.email}</p>
-            <p class="card-text">Ubicación: ${empresa.ubicacion}</p>
-            <p class="card-text">Fecha de Fundación: ${empresa.fechaFundacion}</p>
-            <div class="text-center mt-2">
-                <button class="btn btn-warning btn-sm" onclick="editarEmpresa('${empresa.id}')">Editar</button>
-                <button class="btn btn-danger btn-sm" onclick="eliminarEmpresa('${empresa.id}')">Eliminar</button>
-            </div>
-        `;
+                <h5 class="card-title">${empresa.nombre}</h5>
+                <p class="card-text">ID: ${empresa.id}</p>
+                <p class="card-text">Email: ${empresa.email}</p>
+                <p class="card-text">Ubicación: ${empresa.ubicacion}</p>
+                <p class="card-text">Fecha de Fundación: ${empresa.fechaFundacion}</p>
+                <div class="text-center mt-2">
+                    <button class="btn btn-danger btn-sm" data-id="${empresa.id}">Eliminar</button>
+                </div>
+            `;
             listaEmpresas.appendChild(div);
+        });
+
+        listaEmpresas.addEventListener('click', function(e) {
+            if (e.target && e.target.matches('button.btn-danger')) {
+                const empresaId = e.target.getAttribute('data-id');
+                eliminarEmpresa(empresaId);
+            } else if (e.target && e.target.matches('button.btn-primary')) {
+                const empresaId = e.target.getAttribute('data-id');
+                editarEmpresa(empresaId);
+            }
         });
     }
 
-    // Si estamos en listaEmpresas.html, mostramos las empresas
-    if (window.location.pathname.includes('listaEmpresas.html')) {
-        mostrarEmpresas();
+    // Función para editar una empresa
+    function editarEmpresa(id) {
+        const empresa = empresas.find(e => e.id === id);
+        if (empresa) {
+            document.getElementById('empresa-id').value = empresa.id;
+            document.getElementById('nombre').value = empresa.nombre;
+            document.getElementById('email').value = empresa.email;
+            document.getElementById('ubicacion').value = empresa.ubicacion;
+            document.getElementById('fechaFundacion').value = empresa.fechaFundacion;
+
+            document.getElementById('editar-empresa-form').style.display = 'block';
+            document.getElementById('volver-lista-button').style.display = 'none';
+            document.getElementById('seleccionar-empresa').style.display = 'none';
+        }
     }
 
-    // Guardamos los cambios al editar una empresa
+    // Función para manejar el envío del formulario de edición
     const formEditar = document.getElementById('editar-empresa-form');
     if (formEditar) {
         formEditar.addEventListener('submit', function (e) {
             e.preventDefault();
-
             if (validarFormulario()) {
                 const id = document.getElementById('empresa-id').value;
                 const nombre = document.getElementById('nombre').value;
@@ -174,58 +168,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Crear una nueva empresa
-    const formCrear = document.getElementById('crear-empresa-form');
-    if (formCrear) {
-        formCrear.addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            if (validarFormulario()) {
-                const nombre = document.getElementById('nombre').value;
-                const email = document.getElementById('email').value;
-                const ubicacion = document.getElementById('ubicacion').value;
-                const fechaFundacion = document.getElementById('fechaFundacion').value;
-
-                const nuevaEmpresa = {
-                    id: generarId(),
-                    nombre,
-                    email,
-                    ubicacion,
-                    fechaFundacion
-                };
-
-                empresas.push(nuevaEmpresa);
-                guardarEmpresasEnJSON();
-                window.location.href = 'listaEmpresas.html';
-            } else {
-                alert('Por favor, corrija los errores antes de enviar el formulario.');
-            }
-        });
-    }
-
     // Función para cargar empresas desde un archivo JSON
-    function cargarEmpresasDesdeArchivo(file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            try {
-                const data = JSON.parse(event.target.result);
-                if (Array.isArray(data)) {
-                    empresas = data;
-                    mostrarEmpresas();
-                } else {
-                    alert("El archivo JSON no tiene el formato correcto.");
-                }
-            } catch (e) {
-                alert("Error al leer el archivo JSON.");
-            }
-        };
-        reader.readAsText(file);
-    }
-
     const loadButton = document.getElementById('load-button');
     const fileInput = document.getElementById('file-input');
+
     if (loadButton && fileInput) {
-        loadButton.addEventListener('click', function() {
+        loadButton.addEventListener('click', function () {
             const file = fileInput.files[0];
             if (file) {
                 cargarEmpresasDesdeArchivo(file);
@@ -234,4 +182,78 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Función para cargar las empresas desde un archivo JSON
+    function cargarEmpresasDesdeArchivo(file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            try {
+                const data = JSON.parse(event.target.result);
+                if (Array.isArray(data)) {
+                    empresas = data;  // Guardamos las empresas cargadas
+                    mostrarEmpresas();  // Actualizamos la lista de empresas
+                    cargarEmpresasEnSelector();  // Actualizamos el selector de empresa
+                } else {
+                    // Si el formato no es correcto, no hacer nada (o puedes agregar un log opcional)
+                    console.log("El archivo JSON no tiene el formato correcto.");
+                }
+            } catch (e) {
+                // Aquí se elimina el alert innecesario
+                console.log("Error al leer el archivo JSON."); // Si quieres solo un log, de lo contrario, no pongas nada
+            }
+        };
+        reader.readAsText(file);
+    }
+
+
+    // Función para cargar las empresas en el selector
+    function cargarEmpresasEnSelector() {
+        const empresaSelector = document.getElementById('empresa-lista');
+        const mensajeNoEmpresas = document.getElementById('mensaje-no-empresas');
+        const empresaSelectorContainer = document.getElementById('empresa-selector');
+
+        if (empresas.length > 0) {
+            empresaSelectorContainer.style.display = 'block';
+            mensajeNoEmpresas.style.display = 'none';
+
+            empresaSelector.innerHTML = '';
+            empresas.forEach(empresa => {
+                const option = document.createElement('option');
+                option.value = empresa.id;
+                option.textContent = empresa.nombre;
+                empresaSelector.appendChild(option);
+            });
+
+            const editarButton = document.getElementById('editar-button');
+            editarButton.disabled = false;
+        } else {
+            empresaSelectorContainer.style.display = 'none';
+            mensajeNoEmpresas.style.display = 'block';
+        }
+    }
+
+    // Evento para el botón "Volver a la Lista de Empresas"
+    const volverListaButton = document.getElementById('volver-lista-button');
+    if (volverListaButton) {
+        volverListaButton.addEventListener('click', function () {
+            // Se muestra el selector de empresas y el botón de volver
+            document.getElementById('editar-empresa-form').style.display = 'none';
+            document.getElementById('volver-lista-button').style.display = 'none';
+            document.getElementById('seleccionar-empresa').style.display = 'block';
+        });
+    }
+
+    // Evento para el botón "Editar Empresa"
+    const editarButton = document.getElementById('editar-button');
+    if (editarButton) {
+        editarButton.addEventListener('click', function () {
+            const empresaId = document.getElementById('empresa-lista').value;
+            if (empresaId) {
+                editarEmpresa(empresaId);
+            }
+        });
+    }
+
+    // Cargar empresas al inicio si ya se han cargado previamente
+    cargarEmpresasEnSelector();
 });

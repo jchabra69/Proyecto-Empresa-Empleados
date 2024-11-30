@@ -1,21 +1,15 @@
-/* Estilos globales */
-
-/* Aseguramos que el html y body ocupen toda la altura */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-/* Usamos Flexbox en el body para que el footer se quede al fondo */
 body {
     display: flex;
-    flex-direction: column; /* Disposición en columna */
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    flex-direction: column;
+
 }
 
-/* Estilos para el header */
 header {
     background-color: #4CAF50;
     color: white;
@@ -27,7 +21,6 @@ h1 {
     margin: 0;
 }
 
-/* Estilos de la navegación */
 nav {
     text-align: center;
     margin-top: 20px;
@@ -43,7 +36,6 @@ nav ul li {
     margin: 0 10px;
 }
 
-/* Estilo personalizado para los botones grandes */
 .nav-link {
     font-size: 1.2rem;
     padding: 15px 25px;
@@ -53,41 +45,54 @@ nav ul li {
     transition: all 0.3s ease;
 }
 
-/* Botones con colores personalizados para las entidades */
 .btn-empresa {
-    background-color: #007bff; /* Azul */
+    background-color: #007bff;
     color: white;
     border: 2px solid #007bff;
 }
 
 .btn-empresa:hover {
-    background-color: #0056b3; /* Azul más oscuro */
+    background-color: #0056b3;
     border-color: #0056b3;
 }
 
 .btn-empleado {
-    background-color: #28a745; /* Verde */
+    background-color: #28a745;
     color: white;
     border: 2px solid #28a745;
 }
 
 .btn-empleado:hover {
-    background-color: #218838; /* Verde más oscuro */
+    background-color: #218838;
     border-color: #218838;
 }
 
-/* Aseguramos que el contenido principal ocupe el espacio disponible */
 main {
-    flex: 1;  /* Esto hace que el contenido ocupe el espacio restante */
+    flex: 1;
     padding: 20px;
 }
 
-/* Estilos para el footer */
 footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 10px;
     margin-top: 20px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icono-logo {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+h1 {
+    margin: 0;
 }
 
